@@ -1,5 +1,8 @@
 package draw;
 
+/**
+ * Presents a line.
+ */
 public class Line extends Graphic {
     final Point start;
     final Point end;

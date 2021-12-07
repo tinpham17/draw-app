@@ -71,6 +71,10 @@ public class App {
         sc.close();
     }
 
+    /**
+     * Renders the canvas to System.in.
+     * @param canvas canvas to be rendered
+     */
     public static void render(Canvas canvas) {
         Character[][] pixels = canvas.output();
         for (int row = 0; row < pixels.length; row++) {

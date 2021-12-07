@@ -1,5 +1,8 @@
 package draw;
 
+/**
+ * Presents a point in 2D space.
+ */
 public class Point {
     final int x;
     final int y;

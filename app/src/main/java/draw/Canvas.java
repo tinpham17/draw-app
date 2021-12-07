@@ -18,12 +18,22 @@ public class Canvas {
         this.pixels = this.initPixels(width, height);
     }
 
+    /**
+     * Sets a point color. If the point is not valid (for example it's out of canvas size), nothing happens.
+     * @param point
+     * @param color
+     */
     public void set(Point point, Character color) {
         if (this.isInside(point)) {
             this.pixels[point.y][point.x] = color;
         }
     }
 
+    /**
+     * Gets a point color. If the point is not valid (for example it's out of canvas size), null is returned.
+     * @param point
+     * @return
+     */
     public Character get(Point point) {
         if (this.isInside(point)) {
             return this.pixels[point.y][point.x];
