@@ -41,6 +41,10 @@ public class Canvas {
         return null;
     }
 
+    /**
+     * 
+     * @return map pixels
+     */
     public Character[][] output() {
         return this.pixels;
     }
