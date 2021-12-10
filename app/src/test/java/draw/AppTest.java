@@ -3,8 +3,8 @@
  */
 package draw;
 
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -18,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class AppTest {
@@ -54,8 +53,8 @@ public class AppTest {
             List<String> commands = List.of(cmd, "q");
             setInput(commands);
             App.main(new String[]{""});
-            assertEquals(1, mocked.constructed().size());
-            assertNotNull(mocked.constructed().get(0));
+            Assertions.assertEquals(1, mocked.constructed().size());
+            Assertions.assertNotNull(mocked.constructed().get(0));
             verify(mocked.constructed().get(0), times(1)).output();
         }
     }

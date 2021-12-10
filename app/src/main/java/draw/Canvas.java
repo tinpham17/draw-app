@@ -3,7 +3,7 @@ package draw;
 public class Canvas {
     private final int width;
     private final int height;
-    private Character[][] pixels;
+    private final Character[][] pixels;
 
     public static Canvas create(int width, int height) {
         if (width <= 0 || height <= 0) {
@@ -20,8 +20,8 @@ public class Canvas {
 
     /**
      * Sets a point color. If the point is not valid (for example it's out of canvas size), nothing happens.
-     * @param point
-     * @param color
+     * @param point the point
+     * @param color the color
      */
     public void set(Point point, Character color) {
         if (this.isInside(point)) {
@@ -31,8 +31,8 @@ public class Canvas {
 
     /**
      * Gets a point color. If the point is not valid (for example it's out of canvas size), null is returned.
-     * @param point
-     * @return
+     * @param point the point
+     * @return the color
      */
     public Character get(Point point) {
         if (this.isInside(point)) {
@@ -59,7 +59,7 @@ public class Canvas {
         Character[][] pixels = new Character[framedHeight][framedWidth];
         for (int row = 0; row < framedHeight; row++) {
             for (int col = 0; col < framedWidth; col++) {
-                Character c = row == 0 || row == height - 1 ? '-' :
+                char c = row == 0 || row == height - 1 ? '-' :
                     col == 0 || col == width - 1 ? '|' : ' ';
                 pixels[row][col] = c;
             }

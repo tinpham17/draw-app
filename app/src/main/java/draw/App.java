@@ -55,16 +55,12 @@ public class App {
                             render(canvas);
                         }
                     }
-                    case "q" -> {
-                        exited = true;
-                    }
-                    default -> {
-                        System.out.print("invalid command. please ");
-                    }
+                    case "q" -> exited = true;
+                    default -> System.out.print("invalid command. please ");
                 }
             } catch (IndexOutOfBoundsException | NumberFormatException ex) {
                 System.out.println("invalid command arguments. please ");
-                System.err.println(ex);
+                System.err.println(ex.getMessage());
             }
         }
         System.out.println("exited");
@@ -76,10 +72,13 @@ public class App {
      * @param canvas canvas to be rendered
      */
     public static void render(Canvas canvas) {
+        if (canvas == null) {
+            return;
+        }
         Character[][] pixels = canvas.output();
-        for (int row = 0; row < pixels.length; row++) {
-            for (int col = 0; col < pixels[row].length; col++) {
-                System.out.print(pixels[row][col]);
+        for (Character[] pixel : pixels) {
+            for (Character character : pixel) {
+                System.out.print(character);
             }
             System.out.println();
         }

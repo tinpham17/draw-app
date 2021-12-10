@@ -3,7 +3,7 @@ package draw;
 public interface Drawable {
     /**
      * Draws onto the canvas.
-     * @param canvas
+     * @param canvas the canvas
      */
-    public void draw(Canvas canvas);
+    void draw(Canvas canvas);
 }
