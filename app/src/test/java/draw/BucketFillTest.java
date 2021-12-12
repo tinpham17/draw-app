@@ -2,9 +2,8 @@ package draw;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -31,18 +30,42 @@ public class BucketFillTest {
     @Mock
     private Canvas canvas;
 
-    @ParameterizedTest
-    @ValueSource(chars = {'o', 'c'})
-    void draw(Character character) {
-        // when(canvas.get(eq(new Point(anyInt(), anyInt())))).thenReturn(character);
-        // when(canvas.get(eq(new Point(intThat(x-> x == 3), intThat(y -> y == 5))))).thenReturn(BLANK, character);
-        // when(canvas.get(new Point(intThat(x-> x == 4), intThat(y -> y == 5)))).thenReturn(BLANK, character);
-        // when(canvas.get(new Point(intThat(x-> x == 5), intThat(y -> y == 5)))).thenReturn(BLANK, character);
-        // when(canvas.get(new Point(intThat(x-> x == 3), intThat(y -> y == 6)))).thenReturn(BLANK, character);
-        // when(canvas.get(new Point(intThat(x-> x == 4), intThat(y -> y == 6)))).thenReturn(BLANK, character);
-        // when(canvas.get(new Point(intThat(x-> x == 5), intThat(y -> y == 6)))).thenReturn(BLANK, character);
-        BucketFill bucketFill = new BucketFill(new Point(4, 5), character);
+    @Test
+    void draw() {
+        when(canvas.get(any())).thenReturn(null);
+        when(canvas.get(new Point(2,3))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(3,3))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(4,3))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(5,3))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(6,3))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(3,4))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(4,4))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(5,4))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(6,4))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(4,5))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(5,5))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(6,5))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(5,6))).thenReturn(' ', 'x');
+        when(canvas.get(new Point(6,6))).thenReturn(' ', 'x');
+        BucketFill bucketFill = new BucketFill(new Point(4, 4), 'x');
         spy(bucketFill).draw(canvas);
-        // verify(canvas, times(6)).set(eq(new Point(anyInt(), anyInt())), anyChar());
+
+        verify(canvas, times(1)).set(new Point(2,3), 'x');
+        verify(canvas, times(1)).set(new Point(3,3), 'x');
+        verify(canvas, times(1)).set(new Point(4,3), 'x');
+        verify(canvas, times(1)).set(new Point(5,3), 'x');
+        verify(canvas, times(1)).set(new Point(6,3), 'x');
+        verify(canvas, times(1)).set(new Point(3,4), 'x');
+        verify(canvas, times(1)).set(new Point(4,4), 'x');
+        verify(canvas, times(1)).set(new Point(5,4), 'x');
+        verify(canvas, times(1)).set(new Point(6,4), 'x');
+        verify(canvas, times(1)).set(new Point(4,5), 'x');
+        verify(canvas, times(1)).set(new Point(5,5), 'x');
+        verify(canvas, times(1)).set(new Point(6,5), 'x');
+        verify(canvas, times(1)).set(new Point(5,6), 'x');
+        verify(canvas, times(1)).set(new Point(6,6), 'x');
+
+        verify(canvas, never()).set(new Point(7,6), 'x');
+        verify(canvas, never()).set(new Point(1,3), 'x');
     }
 }

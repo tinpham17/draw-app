@@ -30,7 +30,7 @@ public class LineTest {
     private Canvas canvas;
 
     @Test
-    void drawOnNullCanvas() {
+    void drawUnsupported() {
         Line line = new Line(new Point(1, 2), new Point(3, 4), 'x');
         spy(line).draw(canvas);
         verify(canvas, never()).set(any(), anyChar());

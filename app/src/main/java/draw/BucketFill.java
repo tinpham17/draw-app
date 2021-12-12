@@ -3,6 +3,9 @@ package draw;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Bucket Fill similar to that tool in MS Paint.
+ */
 public class BucketFill extends Graphic {
     final Point point;
     final Character color;
@@ -15,6 +18,8 @@ public class BucketFill extends Graphic {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+
+        // Flood-fill
 
         List<Point> points = new ArrayList<>();
         points.add(this.point);

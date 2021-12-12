@@ -1,5 +1,8 @@
 package draw;
 
+/**
+ * Represents a Canvas.
+ */
 public class Canvas {
     private final int width;
     private final int height;
@@ -42,7 +45,7 @@ public class Canvas {
     }
 
     /**
-     * 
+     * Gets canvas output to display.
      * @return map pixels
      */
     public Character[][] output() {
@@ -50,7 +53,9 @@ public class Canvas {
     }
 
     private boolean isInside(Point point) {
-        return point.x > 0 && point.x < width - 1 && point.y > 0 && point.y < height - 1;
+        int framedHeight = height + 2;
+        int framedWidth = width + 2;
+        return point.x > 0 && point.x < framedWidth - 1 && point.y > 0 && point.y < framedHeight - 1;
     }
 
     private Character[][] initPixels(int width, int height) {
@@ -59,8 +64,8 @@ public class Canvas {
         Character[][] pixels = new Character[framedHeight][framedWidth];
         for (int row = 0; row < framedHeight; row++) {
             for (int col = 0; col < framedWidth; col++) {
-                char c = row == 0 || row == height - 1 ? '-' :
-                    col == 0 || col == width - 1 ? '|' : ' ';
+                char c = row == 0 || row == framedHeight - 1 ? '-' :
+                    col == 0 || col == framedWidth - 1 ? '|' : ' ';
                 pixels[row][col] = c;
             }
         }

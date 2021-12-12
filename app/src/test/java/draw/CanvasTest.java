@@ -11,80 +11,77 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.spy;
 
 @ExtendWith(MockitoExtension.class)
 public class CanvasTest {
-    private static final PrintStream normalOut = System.out;
-    private static ByteArrayOutputStream outputStream;
-
     @BeforeEach
     public void setUpStreams() {
-        outputStream = new ByteArrayOutputStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
     }
 
     @AfterEach
     public void restoreStreams() {
-        System.setOut(normalOut);
-    }
-
-    private String getOutput() {
-        return outputStream.toString().trim().replaceAll("\\r\\n?", "\n");
+        System.setOut(System.out);
     }
 
     @ParameterizedTest
-    @CsvSource({"0,0", "0,1", "2,0", "-1,-1", "-3,4", "5,-2"})
-    void getInstanceWithInvalidParams(int width, int height) {
-        assertNull(Canvas.create(width, height));
+    @CsvSource({"0, 400", "-10, 400", "400, 0", "400, -10"})
+    void createInvalidCanvas(int width, int height) {
+        Canvas canvas = Canvas.create(width, height);
+        assertNull(canvas);
     }
 
     @ParameterizedTest
-    @CsvSource({"1,1", "4,5"})
-    void getInstanceWithValidParams(int width, int height) {
-        assertInstanceOf(Canvas.class, Canvas.create(width, height));
+    @CsvSource({"300, 400", "400, 300"})
+    void createValidCanvas(int width, int height) {
+        Canvas canvas = Canvas.create(width, height);
+        assertNotNull(canvas);
     }
 
     @Test
-    void draw() {
-        spy(requireNonNull(Canvas.create(1, 1))).output();
-        assertEquals("""
-                ---
-                | |
-                ---""".replaceAll("\\r\\n?", "\n"),
-                getOutput()
-        );
-
-        setUpStreams();
-
-        spy(requireNonNull(Canvas.create(20, 4))).output();
-        assertEquals("""
-                ----------------------
-                |                    |
-                |                    |
-                |                    |
-                |                    |
-                ----------------------""".replaceAll("\\r\\n?", "\n"),
-                getOutput()
-        );
+    void setInsideCanvas() {
+        Canvas canvas = Canvas.create(5, 10);
+        assertNotNull(canvas);
+        Point point = new Point(3, 5);
+        Character color = 'x';
+        canvas.set(point, color);
+        assertEquals(canvas.get(point), color);
     }
 
-    @ParameterizedTest
-    @CsvSource({"0,0", "0,1", "1,0", "-1,-1", "-1,1", "1,-1", "4,4", "1,4", "4,1"})
-    void getSetValueWithInvalidParams(int x, int y) {
-        Canvas canvas = spy(requireNonNull(Canvas.create(2, 2)));
-        canvas.set(new Point(x, y), 'x');
-        assertNull(canvas.get(new Point(x, y)));
+    @Test
+    void setOutsideCanvas() {
+        Canvas canvas = Canvas.create(5, 10);
+        assertNotNull(canvas);
+        Point point = new Point(12, 12);
+        Character color = 'x';
+        canvas.set(point, color);
+        assertNull(canvas.get(point));
     }
 
-    @ParameterizedTest
-    @CsvSource({"1,2", "2,1", "2,2"})
-    void getSetValueWithValidParams(int x, int y) {
-        Canvas canvas = spy(requireNonNull(Canvas.create(2, 2)));
-        canvas.set(new Point(x, y), 'c');
-        assertEquals('c', canvas.get(new Point(x, y)));
+    @Test
+    void getCanvasOutput() {
+        Canvas canvas = Canvas.create(3, 5);
+        assertNotNull(canvas);
+        Character color = 'x';
+        canvas.set(new Point(2, 3), 'x');
+        canvas.set(new Point(1, 4), 'o');
+        canvas.set(new Point(10, 10), color);
+        Character[][] expected = new Character[][]{
+                {'-', '-', '-', '-', '-'},
+                {'|', ' ', ' ', ' ', '|'},
+                {'|', ' ', ' ', ' ', '|'},
+                {'|', ' ', 'x', ' ', '|'},
+                {'|', 'o', ' ', ' ', '|'},
+                {'|', ' ', ' ', ' ', '|'},
+                {'-', '-', '-', '-', '-'},
+        };
+        Character[][] actual = canvas.output();
+        for (int row = 0; row < actual.length; row++) {
+            for (int col = 0; col < actual[row].length; col++) {
+                assertEquals(actual[row][col], expected[row][col]);
+            }
+        }
     }
-
 }

@@ -1,5 +1,8 @@
 package draw;
 
+/**
+ * Drawable interface.
+ */
 public interface Drawable {
     /**
      * Draws onto the canvas.

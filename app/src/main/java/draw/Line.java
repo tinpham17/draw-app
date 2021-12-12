@@ -18,15 +18,15 @@ public class Line extends Graphic {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         if (this.start.x == this.end.x) {
-            drawVertical(canvas);
+            drawVertically(canvas);
             return;
         }
         if (this.start.y == this.end.y) {
-            drawHorizontal(canvas);
+            drawHorizontally(canvas);
         }
     }
 
-    private void drawHorizontal(Canvas canvas) {
+    private void drawHorizontally(Canvas canvas) {
         int startX = Math.min(this.start.x, this.end.x);
         int endX = Math.max(this.start.x, this.end.x);
         for (int x = startX; x <= endX; x++) {
@@ -34,7 +34,7 @@ public class Line extends Graphic {
         }
     }
 
-    private void drawVertical(Canvas canvas) {
+    private void drawVertically(Canvas canvas) {
         int startY = Math.min(this.start.y, this.end.y);
         int endY = Math.max(this.start.y, this.end.y);
         for (int y = startY; y <= endY; y++) {
