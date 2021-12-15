@@ -18,48 +18,36 @@ public class App {
                         render(canvas);
                     }
                     case "l" -> {
-                        if (canvas == null) {
-                            System.out.print("canvas not created yet. please ");
-                        } else {
-                            Line line = new Line(
-                                new Point(Integer.parseInt(cmdArgs[1]), Integer.parseInt(cmdArgs[2])),
-                                new Point(Integer.parseInt(cmdArgs[3]), Integer.parseInt(cmdArgs[4])),
-                                'x'
-                            );
-                            line.draw(canvas);
-                            render(canvas);
-                        }
+                        Line line = new Line(
+                            new Point(Integer.parseInt(cmdArgs[1]), Integer.parseInt(cmdArgs[2])),
+                            new Point(Integer.parseInt(cmdArgs[3]), Integer.parseInt(cmdArgs[4])),
+                            'x'
+                        );
+                        line.draw(canvas);
+                        render(canvas);
                     }
                     case "r" -> {
-                        if (canvas == null) {
-                            System.out.print("canvas not created yet. please ");
-                        } else {
-                            Rectangle rectangle = new Rectangle(
-                                new Point(Integer.parseInt(cmdArgs[1]), Integer.parseInt(cmdArgs[2])),
-                                new Point(Integer.parseInt(cmdArgs[3]), Integer.parseInt(cmdArgs[4])),
-                                'x'
-                            );
-                            rectangle.draw(canvas);
-                            render(canvas);
-                        }
+                        Rectangle rectangle = new Rectangle(
+                            new Point(Integer.parseInt(cmdArgs[1]), Integer.parseInt(cmdArgs[2])),
+                            new Point(Integer.parseInt(cmdArgs[3]), Integer.parseInt(cmdArgs[4])),
+                            'x'
+                        );
+                        rectangle.draw(canvas);
+                        render(canvas);
                     }
                     case "b" -> {
-                        if (canvas == null) {
-                            System.out.print("canvas not created yet. please ");
-                        } else {
-                            BucketFill bucketFill = new BucketFill(
-                                new Point(Integer.parseInt(cmdArgs[1]), Integer.parseInt(cmdArgs[2])),
-                                'x'
-                            );
-                            bucketFill.draw(canvas);
-                            render(canvas);
-                        }
+                        BucketFill bucketFill = new BucketFill(
+                            new Point(Integer.parseInt(cmdArgs[1]), Integer.parseInt(cmdArgs[2])),
+                            'x'
+                        );
+                        bucketFill.draw(canvas);
+                        render(canvas);
                     }
                     case "q" -> exited = true;
-                    default -> System.out.print("invalid command. please ");
+                    default -> System.out.println("invalid command");
                 }
             } catch (IndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("invalid command arguments. please ");
+                System.out.println("invalid command arguments");
                 System.err.println(ex.getMessage());
             }
         }
@@ -73,6 +61,7 @@ public class App {
      */
     public static void render(Canvas canvas) {
         if (canvas == null) {
+            System.out.println("canvas not created yet");
             return;
         }
         Character[][] pixels = canvas.output();

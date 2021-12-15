@@ -3,7 +3,7 @@ package draw;
 /**
  * Presents a line.
  */
-public class Line extends Graphic {
+public class Line implements Drawable  {
     final Point start;
     final Point end;
     final Character color;
@@ -16,7 +16,6 @@ public class Line extends Graphic {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
         if (this.start.x == this.end.x) {
             drawVertically(canvas);
             return;

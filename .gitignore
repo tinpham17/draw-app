@@ -5,3 +5,6 @@
 app/build
 
 app/bin
+
+.vscode
+.idea

@@ -1,6 +1,9 @@
 package draw;
 
-public class Rectangle extends Graphic {
+/**
+ * Represents a rectangle.
+ */
+public class Rectangle implements Drawable {
     final Point topLeft;
     final Point bottomRight;
     final Character color;
@@ -13,7 +16,6 @@ public class Rectangle extends Graphic {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
         if (this.topLeft.x < this.bottomRight.x && this.topLeft.y < this.bottomRight.y) {
             for (int i = topLeft.x; i <= bottomRight.x; i++) {
                 canvas.set(new Point(i, topLeft.y), this.color);
